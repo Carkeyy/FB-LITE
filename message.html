@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Messages - CHT</title>
+</head>
+<body>
+    <h1>Your Messages</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li><strong>From: {{ message.sender }}</strong><br>{{ message.message }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No messages yet.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

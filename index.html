@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHT - Social Feed</title>
+</head>
+<body>
+    <h1>Welcome to CHT</h1>
+    {% if session.username %}
+        <p>Logged in as: {{ session.username }} <a href="{{ url_for('logout') }}">Logout</a></p>
+        <h2>Post a Status Update</h2>
+        <form action="{{ url_for('post_status') }}" method="POST">
+            <textarea name="content" placeholder="What's on your mind?" required></textarea><br>
+            <button type="submit">Post</button>
+        </form>
+
+        <h2>Recent Posts:</h2>
+        <ul>
+            {% for post in posts %}
+                <li><strong>{{ post.username }}:</strong> {{ post.content }}</li>
+            {% else %}
+                <li>No posts yet.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Send a Message</h2>
+        <form action="{{ url_for('send_message') }}" method="POST">
+            <label for="recipient">Recipient: </label>
+            <input type="text" name="recipient" id="recipient" required><br>
+            <textarea name="message" placeholder="Write your message..." required></textarea><br>
+            <button type="submit">Send Message</button>
+        </form>
+        <a href="{{ url_for('view_messages') }}">View Messages</a>
+    {% else %}
+        <p>You are not logged in. <a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a></p>
+    {% endif %}
+</body>
+</html>
